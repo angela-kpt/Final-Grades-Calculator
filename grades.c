@@ -11,13 +11,15 @@ int
 main(int argc, char *argv[])
 {
 
-    float goalNeeded, grade, percent, totalGrade = 0, totalPercent = 0, goal;
+    float goalNeeded, grade = 0, percent = 0, totalGrade = 0, totalPercent = 0, goal;
 
     do {
         printf("Enter grade (0 to quit): ");
         scanf("%f", &grade);
-        printf("Enter percentage (0 to quit): ");
-        scanf("%f", &percent);
+        if (grade) {
+            printf("Enter percentage (0 to quit): ");
+            scanf("%f", &percent);
+        }
         totalGrade += WMARK(grade, percent);
         totalPercent += percent;
     } while (grade);
