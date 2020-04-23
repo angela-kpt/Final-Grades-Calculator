@@ -1,19 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* calculate final grade */
-float
-final(float goal, float p, float g)
-{
-    return (goal - (1 - (p / 100)) * g) / (p / 100);
-}
+/* weighted mark calculation */
+#define WMARK(g, p) g * (p / 100)
 
-/* calculate weighted mark */
-float
-marks(float g, float p)
-{
-    return g * (p / 100);
-}
+/* final mark calculation  */
+#define FINAL(goal, p, g) (goal - (1 - (p / 100)) * g) / (p / 100)
 
 int
 main(int argc, char *argv[])
@@ -26,9 +18,9 @@ main(int argc, char *argv[])
         scanf("%f", &grade);
         printf("Enter percentage (0 to quit): ");
         scanf("%f", &percent);
-        totalGrade += marks(grade, percent);
+        totalGrade += WMARK(grade, percent);
         totalPercent += percent;
-    } while (grade)
+    } while (grade);
 
     if (totalPercent != 100)
         totalGrade = totalGrade / (totalPercent / 100);
@@ -37,11 +29,11 @@ main(int argc, char *argv[])
 
     printf("Final grade goal: ");
     scanf("%f", &goal);
-    goalNeeded = final(goal, (100 - totalPercent), totalGrade);
+    goalNeeded = FINAL(goal, (100 - totalPercent), totalGrade);
     
     if (totalPercent >= 100) 
-        printf ("Can't do final grades. You're at 100");
+        printf ("Can't do final grades. You're at 100\n");
     else
-        printf("You would need a %.2f on the remaining %.2f", goalNeeded, (100 - totalPercent));
+        printf("You would need a %.2f on the remaining %.2f\n", goalNeeded, (100 - totalPercent));
 
 }
